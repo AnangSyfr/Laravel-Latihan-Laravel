@@ -36,7 +36,12 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama'  => 'required',
+            'nim'   => 'required|size:9'
+        ]);
+        Student::create($request->all());
+        return redirect('/students')->with('success','Data Berhasil Ditambahkan!');
     }
 
     /**
@@ -58,7 +63,7 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit',compact('student'));
     }
 
     /**
@@ -70,7 +75,12 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $request->validate([
+            'nama'  => 'required',
+            'nim'   => 'required|size:9'
+        ]);
+        Student::find($student->id)->update($request->all());
+        return redirect('/students')->with('success','Data Berhasil Diupdate!');
     }
 
     /**
@@ -81,6 +91,7 @@ class StudentsController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        Student::destroy($student->id);
+        return redirect('/students')->with('success','Data Berhasil Dihapus!');
     }
 }

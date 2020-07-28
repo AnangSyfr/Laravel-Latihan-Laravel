@@ -19,6 +19,12 @@ Route::get('/mahasiswa','MahasiswaController@index');
 
 
 //students
-Route::get('/students','StudentsController@index');
-Route::get('/students/create','StudentsController@create');
-Route::get('/students/{student}','StudentsController@show');
+// Route::get('/students','StudentsController@index');
+// Route::get('/students/create','StudentsController@create');
+// Route::post('/students','StudentsController@store');
+// Route::get('/students/{student}','StudentsController@show');
+// Route::get('/students/{student}/edit','StudentsController@edit');
+// Route::patch('/students/{student}','StudentsController@update');
+// Route::delete('/students/{student}','StudentsController@destroy');
+// make it simply
+Route::resource('students','StudentsController');
