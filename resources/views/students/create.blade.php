@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-10">
             <h3 class="mt-2">Tambah Data Mahasiswa</h3>
-            <form action="{{ url('/students/store') }}" method="post">
+            <form action="{{ url('/students') }}" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="nama">Nama</label>
