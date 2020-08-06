@@ -89,6 +89,13 @@ class StudentsController extends Controller
             'nama'  => 'required',
             'nim'   => 'required|size:9'
         ]);
+
+        $upd_data = [
+            'nama'  => $request->nama,
+            'nim'   => $request->nim,
+            'email' => $request->email
+        ];
+
         if ($request->hasFile('photo')) {
             $request->validate([
                 'photo' => 'required|mimes:jpeg,bmp,png,jpg',
@@ -97,19 +104,9 @@ class StudentsController extends Controller
             $file = $request->file('photo');
             $filename = $file->store($path_dir);
             Storage::delete($student->photo);
-            $upd_data = [
-                'photo' => $filename,
-                'nama'  => $request->nama,
-                'nim'   => $request->nim,
-                'email' => $request->email
-            ];
-        } else {
-            $upd_data = [
-                'nama'  => $request->nama,
-                'nim'   => $request->nim,
-                'email' => $request->email
-            ];
-        }
+            $upd_data['photo'] = $filename;
+        } 
+
         Student::find($student->id)->update($upd_data);
         return redirect('/students')->with('success','Data Berhasil Diupdate!');
     }
