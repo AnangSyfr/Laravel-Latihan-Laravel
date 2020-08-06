@@ -6,9 +6,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10">
-            <h3 class="mt-2">Tambah Data Mahasiswa</h3>
-            <form action="{{ url('/students') }}" method="post">
+            <h3 class="my-4">Tambah Data Mahasiswa</h3>
+            <form action="{{ url('/students') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <div class="form-group">
+                    <label for="photo">Foto</label>
+                    <input type="file" name="photo" id="photo" class="form-control">
+                    @error('foto')
+                        <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="nama">Nama</label>
                     <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama">

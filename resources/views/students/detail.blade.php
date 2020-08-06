@@ -10,6 +10,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"> {{ $student->nama }} </h5>
+                    <div class="col-md-3 my-4">
+                        <img src="{{ Storage::url($student->photo) }}" class="img-fluid">
+                    </div>
+
                     <h6 class="card-subtitle mb-2 text-muted"> {{ $student->nim }} </h6>
                     <p class="card-text">{{ $student->email }} </p>
 
@@ -20,7 +24,7 @@
                         <button type="submit" class="btn btn-danger">delete</button>
                     </form>
 
-                    <a type="submit" class="btn btn-success">kembali</a>
+                    <a href="{{ url('/students')}}" class="btn btn-success">kembali</a>
                 </div>
             </div>
         </div>

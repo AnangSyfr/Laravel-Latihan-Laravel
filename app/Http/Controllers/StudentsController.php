@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentsController extends Controller
 {
@@ -38,9 +39,18 @@ class StudentsController extends Controller
     {
         $request->validate([
             'nama'  => 'required',
+            'photo' => 'required|mimes:jpeg,bmp,png,jpg',
             'nim'   => 'required|size:9'
         ]);
-        Student::create($request->all());
+        $path_dir = 'public/uploads';
+        $file = $request->file('photo');
+        $filename = $file->store($path_dir);
+        Student::create([
+            'photo' => $filename,
+            'nama'  => $request->nama,
+            'nim'   => $request->nim,
+            'email' => $request->email
+        ]);
         return redirect('/students')->with('success','Data Berhasil Ditambahkan!');
     }
 
@@ -77,9 +87,28 @@ class StudentsController extends Controller
     {
         $request->validate([
             'nama'  => 'required',
+            'photo' => 'required|mimes:jpeg,bmp,png,jpg',
             'nim'   => 'required|size:9'
         ]);
-        Student::find($student->id)->update($request->all());
+        $path_dir = 'public/uploads';
+        $file = $request->file('photo');
+        $filename = $file->store($path_dir);
+        if ($request->hasFile('photo')) {
+            Storage::delete($student->photo);
+            $upd_data = [
+                'photo' => $filename,
+                'nama'  => $request->nama,
+                'nim'   => $request->nim,
+                'email' => $request->email
+            ];
+        } else {
+            $upd_data = [
+                'nama'  => $request->nama,
+                'nim'   => $request->nim,
+                'email' => $request->email
+            ];
+        }
+        Student::find($student->id)->update($upd_data);
         return redirect('/students')->with('success','Data Berhasil Diupdate!');
     }
 
@@ -92,6 +121,7 @@ class StudentsController extends Controller
     public function destroy(Student $student)
     {
         Student::destroy($student->id);
+        Storage::delete($student->photo);
         return redirect('/students')->with('success','Data Berhasil Dihapus!');
     }
 }
