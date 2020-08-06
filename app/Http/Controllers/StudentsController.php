@@ -87,13 +87,15 @@ class StudentsController extends Controller
     {
         $request->validate([
             'nama'  => 'required',
-            'photo' => 'required|mimes:jpeg,bmp,png,jpg',
             'nim'   => 'required|size:9'
         ]);
-        $path_dir = 'public/uploads';
-        $file = $request->file('photo');
-        $filename = $file->store($path_dir);
         if ($request->hasFile('photo')) {
+            $request->validate([
+                'photo' => 'required|mimes:jpeg,bmp,png,jpg',
+            ]);
+            $path_dir = 'public/uploads';
+            $file = $request->file('photo');
+            $filename = $file->store($path_dir);
             Storage::delete($student->photo);
             $upd_data = [
                 'photo' => $filename,

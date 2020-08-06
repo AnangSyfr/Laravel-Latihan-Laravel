@@ -15,8 +15,8 @@
                 </div>
                 <div class="form-group">
                     <label for="photo">Foto</label>
-                    <input type="file" name="photo" id="photo" class="form-control">
-                    @error('foto')
+                    <input type="file" name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror">
+                    @error('photo')
                         <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
                 </div>
