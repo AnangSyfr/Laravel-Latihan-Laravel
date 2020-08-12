@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','PagesController@home');
+Route::get('/','HomeController@index');
 Route::get('/about','PagesController@about');
 Route::get('/mahasiswa','MahasiswaController@index');
 
@@ -28,3 +28,15 @@ Route::get('/mahasiswa','MahasiswaController@index');
 // Route::delete('/students/{student}','StudentsController@destroy');
 // make it simply
 Route::resource('students','StudentsController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('admin-page', function() {
+    return 'Halaman untuk Admin';
+})->middleware('role:admin')->name('admin.page');
+
+Route::get('user-page', function() {
+    return 'Halaman untuk User';
+})->middleware('role:user')->name('user.page');
