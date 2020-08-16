@@ -1,8 +1,8 @@
-@extends('layout/main')
+@extends('layouts/app')
 
 @section('title','Web Laravel | Form Edit Data Mahasiswa')
 
-@section('container')
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-10">

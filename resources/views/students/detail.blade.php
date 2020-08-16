@@ -1,8 +1,8 @@
-@extends('layout/main')
+@extends('layouts/app')
 
 @section('title','Web Laravel | Detail Mahasiswa')
 
-@section('container')
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-10">
@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title"> {{ $student->nama }} </h5>
                     <div class="col-md-3 my-4">
-                        <img src="{{ Storage::url($student->photo) }}" class="img-fluid">
+                        <img src="{{ url(Storage::url($student->photo)) }}" class="img-fluid">
                     </div>
 
                     <h6 class="card-subtitle mb-2 text-muted"> {{ $student->nim }} </h6>

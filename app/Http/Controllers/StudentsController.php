@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use DataTables;
 
 class StudentsController extends Controller
 {
@@ -13,10 +14,14 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function students_data(){
+         return Datatables::of(Student::all())->make(true);
+    }
+
     public function index()
     {
-        $students = Student::all();
-        return view('students.index',compact('students'));
+        return view('students.index');
     }
 
     /**
@@ -105,7 +110,7 @@ class StudentsController extends Controller
             $filename = $file->store($path_dir);
             Storage::delete($student->photo);
             $upd_data['photo'] = $filename;
-        } 
+        }
 
         Student::find($student->id)->update($upd_data);
         return redirect('/students')->with('success','Data Berhasil Diupdate!');

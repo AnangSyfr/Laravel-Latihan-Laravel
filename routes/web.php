@@ -27,7 +27,7 @@ Route::get('/mahasiswa','MahasiswaController@index');
 // Route::patch('/students/{student}','StudentsController@update');
 // Route::delete('/students/{student}','StudentsController@destroy');
 // make it simply
-Route::resource('students','StudentsController');
+Route::resource('students','StudentsController')->middleware('role:admin');
 
 Auth::routes();
 
